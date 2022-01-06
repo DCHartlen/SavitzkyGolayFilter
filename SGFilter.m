@@ -18,6 +18,16 @@ for iPt = 1:length(yy)
     end
 end
 
+if s > 0
+    if size(varargin,1) == 1
+        dx = varargin{1};
+        yyFilt = yyFilt./(dx^s);
+    else
+        warning(['Derivative requested but dx not provided.'...
+            ' Normalized derivative returned'])
+    end
+end
+
 end
 
 

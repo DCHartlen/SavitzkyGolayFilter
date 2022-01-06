@@ -3,10 +3,10 @@ close all;
 clear;
 clc;
 
-cset = cbrewer2('set1',4)
+cset = cbrewer2('set1',4);
 colormap(cset)
 
-k = 5; % polynomial order
+k = 1; % polynomial order
 winSize = 25; % window size (must be odd)
 s = 0; % differentiation order
 
@@ -34,4 +34,7 @@ subplot(1,2,1)
 plot(xx,yyFilt, 'DisplayName','S-G Filter','color',cset(3,:))
 legend()
 
-yyDerivFilt 
+s = 1;
+yyDerivFilt = SGFilter(yy, k, winSize, s, dx);
+subplot(1,2,2);
+plot(xx,yyDerivFilt, 'DisplayName','S-G Filter Deriv.','color',cset(3,:))
