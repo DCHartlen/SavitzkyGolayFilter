@@ -20,26 +20,24 @@ if cfc > 0.5*fS
         'half the sampling freqency'])
 end
 
-% Compute intermediate values
+% Compute intermediate values (taken from J211-1 standard)
 corner = 0.6*cfc;
 dt = 1/fS;
 wd = 2*pi*corner*2.0775;
 wa = sin(wd*dt/2)/cos(wd*dt/2);
 
-% Compute A coefficients
+% Compute A and B filter coefficients
 a0 = wa^2/(1+sqrt(2)*wa+wa^2);
 a1 = 2*a0;
 a2 = a0;
-
-% Compute B coefficients
+A = [a0, a1, a2];
 b0 = 1;
 b1 = -2*(wa^2-1)/(1+sqrt(2)*wa+wa^2);
 b2 = (-1+sqrt(2)*wa-wa^2)/(1+sqrt(2)*wa+wa^2);
-
-A = [a0, a1, a2];
 B = [b0, -b1, -b2];
-% Function filtfilt performs efficient forward-backward convolution
-% filtering.
+
+% Function filtfilt performs efficient forward-backward convolution for
+% zero phase filtering
 yyFilt = filtfilt(A, B, yy);
 
 end
